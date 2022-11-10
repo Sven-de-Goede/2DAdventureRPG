@@ -7,7 +7,7 @@ public class PlayerManager : MonoBehaviour
 private GameObject player;
 public static PlayerManager instance;
 public Vector2 playerPos; 
-public int playerHealth = 3;
+public int playerHealth = 100;
 
 private void Awake()
     {
@@ -25,7 +25,6 @@ private void Awake()
     void Start()
     {
         player = GameObject.Find("Player");
-        playerHealth = 3;
     }
 
     // Update is called once per frame
