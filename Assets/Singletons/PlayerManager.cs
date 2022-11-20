@@ -26,7 +26,6 @@ private void Awake()
     void Start()
     {
         player = GameObject.Find("Player");
-        playerHealth = 3;
     }
 
     // Update is called once per frame
