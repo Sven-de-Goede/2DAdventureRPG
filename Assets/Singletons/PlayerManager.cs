@@ -8,6 +8,7 @@ private GameObject player;
 public static PlayerManager instance;
 public Vector2 playerPos; 
 public int playerHealth = 3;
+public float moveSpeed = 1f;
 
 private void Awake()
     {

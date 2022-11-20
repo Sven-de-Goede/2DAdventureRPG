@@ -6,9 +6,11 @@ using UnityEngine.InputSystem;
 // Takes and handles input and movement for a player character
 public class PlayerController : MonoBehaviour
 {
-    public float moveSpeed = 1f;
+    public GameObject playerManager;
+    public float swordCooldown = 1f;
     public float collisionOffset = 0.05f;
     public ContactFilter2D movementFilter;
+    public GameObject swordHitBox;
 
     Vector2 movementInput;
     SpriteRenderer spriteRenderer;
@@ -24,6 +26,13 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        swordHitBox = transform.Find("SwordHitBox").gameObject;
+        playerManager = GameObject.Find("PlayerManager");
+    }
+
+    private void Update(){
+        swordCooldown -= 1f * Time.deltaTime;
+        
     }
 
     private void FixedUpdate()
@@ -57,10 +66,12 @@ public class PlayerController : MonoBehaviour
             if (movementInput.x < 0)
             {
                 spriteRenderer.flipX = true;
+                swordHitBox.transform.position = transform.position - new Vector3 (0.2f, 0, 0);
             }
             else if (movementInput.x > 0)
             {
                 spriteRenderer.flipX = false;
+                swordHitBox.transform.position = transform.position;
             }
         }
     }
@@ -74,11 +85,11 @@ public class PlayerController : MonoBehaviour
                 direction, // X and Y values between -1 and 1 that represent the direction from the body to look for collisions
                 movementFilter, // The settings that determine where a collision can occur on such as layers to collide with
                 castCollisions, // List of collisions to store the found collisions into after the Cast is finished
-                moveSpeed * Time.fixedDeltaTime + collisionOffset); // The amount to cast equal to the movement plus an offset
+                PlayerManager.instance.moveSpeed * Time.fixedDeltaTime + collisionOffset); // The amount to cast equal to the movement plus an offset
 
             if (count == 0)
             {
-                rb.MovePosition(rb.position + direction * moveSpeed * Time.fixedDeltaTime);
+                rb.MovePosition(rb.position + direction * PlayerManager.instance.moveSpeed * Time.fixedDeltaTime);
                 return true;
             }
             else
@@ -99,9 +110,16 @@ public class PlayerController : MonoBehaviour
         movementInput = movementValue.Get<Vector2>();
     }
 
+
+    //on left click
     void OnFire()
     {
+        if(swordCooldown <= 0)
+        {
         animator.SetTrigger("swordAttack");
+        swordCooldown = 1f;
+        StartCoroutine(activateSwordHitbox(0.5f));
+        }
     }
 
     public void LockMovement()
@@ -112,4 +130,14 @@ public class PlayerController : MonoBehaviour
     {
         canMove = true;
     }
+
+    //function to activate sword hitbox
+    public IEnumerator activateSwordHitbox(float activeTime)
+   {
+      swordHitBox.SetActive(true);
+      yield return new WaitForSeconds(activeTime);
+      swordHitBox.SetActive(false);
+
+   }
+
 }

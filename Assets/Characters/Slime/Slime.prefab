@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8975361634681017222}
   - component: {fileID: 5551123139859608462}
-  - component: {fileID: -7179579037160777986}
+  - component: {fileID: 4715405013262232376}
   - component: {fileID: 7733953012535224730}
   m_Layer: 0
   m_Name: Slime
@@ -86,7 +86,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &-7179579037160777986
+--- !u!114 &4715405013262232376
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -95,11 +95,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 5245873361036835958}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f429ab65f07cbb847acf7fa0c838951b, type: 3}
+  m_Script: {fileID: 11500000, guid: 36b3110a46a51864995999ae428afed5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   playerManager: {fileID: 0}
-  speed: 0.5
+  moveSpeed: 0.5
+  hp: 1
 --- !u!61 &7733953012535224730
 BoxCollider2D:
   m_ObjectHideFlags: 0
