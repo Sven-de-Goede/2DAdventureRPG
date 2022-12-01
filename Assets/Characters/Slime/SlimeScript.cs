@@ -10,6 +10,7 @@ public class SlimeScript : MonoBehaviour
     private Color startColor;
     public float getHitCooldown = 1f;
     public float damagePlayerCooldown = 2f;
+    private bool addedScore = false;
     Animator animator;
     SpriteRenderer sprite;
     Collider2D collideBox;
@@ -34,12 +35,18 @@ public class SlimeScript : MonoBehaviour
         //kill slime if under 0 hp
         if (hp <= 0)
         {
-            
             animator.SetBool("isMoving", false);
             animator.SetBool("isDead", true);
             moveSpeed = 0f;
             collideBox.enabled = false;
-            DespawnAfterSeconds(4f);
+            Destroy(this.gameObject, 3);
+            
+            if (addedScore == false)
+            {
+                PlayerManager.instance.enemiesKilled++;
+                addedScore = true;
+            }
+            
         }
     }
 
@@ -72,11 +79,6 @@ public class SlimeScript : MonoBehaviour
 
     void ChangeColorBack(){
         sprite.color = startColor;
-    }
-
-    public IEnumerator DespawnAfterSeconds(float seconds){
-              yield return new WaitForSeconds(seconds);
-              Destroy(gameObject);
     }
 
 }

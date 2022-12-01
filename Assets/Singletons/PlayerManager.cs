@@ -6,7 +6,10 @@ public class PlayerManager : MonoBehaviour
 {
 private GameObject player;
 public static PlayerManager instance;
-public Vector2 playerPos; 
+public Vector2 playerPos;
+
+//Statistics trackers
+public int enemiesKilled = 0;
 
 //player stats
 public int playerHealth = 3;
