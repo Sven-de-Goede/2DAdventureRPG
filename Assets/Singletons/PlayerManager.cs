@@ -7,8 +7,11 @@ public class PlayerManager : MonoBehaviour
 private GameObject player;
 public static PlayerManager instance;
 public Vector2 playerPos; 
+
+//player stats
 public int playerHealth = 3;
 public float moveSpeed = 1f;
+public float damageMultiplier = 1f;
 
 private void Awake()
     {
